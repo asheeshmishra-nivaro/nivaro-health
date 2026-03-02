@@ -103,17 +103,17 @@ export default function OperatorInventoryPage() {
                                             <span className="font-bold text-slate-900">{item.name}</span>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 text-sm text-slate-600">{item.batchNumber}</td>
+                                    <td className="px-6 py-4 text-sm text-slate-600">{(item as any).batchNumber || 'N/A'}</td>
                                     <td className="px-6 py-4">
-                                        <span className={`text-sm font-bold ${item.quantity <= item.minStockLevel ? 'text-amber-600' : 'text-slate-900'}`}>
-                                            {item.quantity} units
+                                        <span className={`text-sm font-bold ${item.totalQuantity <= item.minStockLevel ? 'text-amber-600' : 'text-slate-900'}`}>
+                                            {item.totalQuantity} units
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 text-sm text-slate-500">{item.expiryDate}</td>
+                                    <td className="px-6 py-4 text-sm text-slate-500">{(item as any).expiryDate || 'N/A'}</td>
                                     <td className="px-6 py-4">
-                                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-wider ${item.quantity <= item.minStockLevel ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'
+                                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-wider ${item.totalQuantity <= item.minStockLevel ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'
                                             }`}>
-                                            {item.quantity <= item.minStockLevel ? 'CRITICAL' : 'OPTIONAL'}
+                                            {item.totalQuantity <= item.minStockLevel ? 'CRITICAL' : 'OPTIMAL'}
                                         </span>
                                     </td>
                                 </tr>
