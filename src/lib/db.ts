@@ -172,7 +172,7 @@ export const addInventoryBatch = async (
     await batch.commit();
 };
 
-export const adjustInventoryStock = async (
+export const updateInventoryStock = async (
     nodeId: string,
     itemId: string,
     quantityChange: number,
