@@ -1,0 +1,84 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && getUserData().role == 'ADMIN';
+    }
+    
+    function isDoctor() {
+      return isSignedIn() && getUserData().role == 'DOCTOR';
+    }
+    
+    function isOperator() {
+      return isSignedIn() && getUserData().role == 'OPERATOR';
+    }
+    
+    function isSameNode(nodeId) {
+      return getUserData().nodeId == nodeId;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Nodes collection
+    match /nodes/{nodeId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Patients collection
+    match /patients/{patientId} {
+      allow read: if isSignedIn();
+      allow create: if isOperator() || isAdmin();
+      allow update: if isOperator() || isDoctor() || isAdmin();
+    }
+
+    // Consultations collection
+    match /consultations/{consultationId} {
+      allow read: if isSignedIn() && (isAdmin() || isSameNode(resource.data.nodeId));
+      allow create: if isOperator() || isAdmin();
+      allow update: if isDoctor() || isOperator() || isAdmin();
+    }
+
+    // Prescriptions collection
+    match /prescriptions/{prescriptionId} {
+      allow read: if isSignedIn();
+      allow create: if isDoctor();
+      allow update: if isDoctor() || isAdmin();
+      // Operators cannot write prescriptions
+    }
+
+    // Inventory collection
+    match /inventory/{nodeId} {
+      allow read: if isSignedIn() && (isAdmin() || isSameNode(nodeId));
+      allow write: if isAdmin(); // Admin manages stock
+      
+      match /items/{itemId} {
+        allow read: if isSignedIn() && (isAdmin() || isSameNode(nodeId));
+        allow write: if isAdmin();
+        allow update: if isOperator() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['quantity']); 
+        // Operator can update quantity (dispensing)
+      }
+    }
+
+    // Activity Logs
+    match /activityLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isSignedIn();
+      allow update, delete: if false; // Immutable logs
+    }
+  }
+}

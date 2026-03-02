@@ -1,0 +1,27 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper function to check if user is signed in
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Patient records and prescription scans
+    match /medical-records/{userId}/{allPaths=**} {
+      allow read: if isSignedIn(); // Adjust this to specific roles (DOCTOR/ADMIN) for higher security
+      allow write: if isSignedIn();
+    }
+
+    // Patient profile pictures
+    match /profiles/{userId}/{allPaths=**} {
+      allow read: if true; // Publicly readable for dashboard UI
+      allow write: if isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Default deny
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
