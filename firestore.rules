@@ -80,5 +80,16 @@ service cloud.firestore {
       allow create: if isSignedIn();
       allow update, delete: if false; // Immutable logs
     }
+
+    // Partnership Requests (Landing Page)
+    match /partnerRequests/{requestId} {
+      allow create: if true; // Public access
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Video Consultation Sessions
+    match /videoSessions/{sessionId} {
+      allow read, write: if isSignedIn() && (isAdmin() || isSameNode(resource.data.nodeId) || isSameNode(request.resource.data.nodeId));
+    }
   }
 }
