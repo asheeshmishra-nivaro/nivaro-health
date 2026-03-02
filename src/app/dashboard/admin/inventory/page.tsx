@@ -67,8 +67,8 @@ export default function AdminInventoryPage() {
 
         try {
             await addInventoryItem(newItem.nodeId, {
-                ...newItem,
-                quantity: Number(newItem.quantity),
+                name: newItem.name,
+                totalQuantity: Number(newItem.quantity),
                 minStockLevel: Number(newItem.minStockLevel),
                 nodeId: newItem.nodeId
             });
@@ -123,7 +123,7 @@ export default function AdminInventoryPage() {
                     </div>
                     <div>
                         <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Low Stock Alerts</p>
-                        <p className="text-2xl font-bold text-slate-900">{items.filter(i => i.quantity <= i.minStockLevel).length}</p>
+                        <p className="text-2xl font-bold text-slate-900">{items.filter(i => i.totalQuantity <= i.minStockLevel).length}</p>
                     </div>
                 </div>
                 <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
@@ -189,23 +189,22 @@ export default function AdminInventoryPage() {
                                             {nodes.find(n => n.id === item.nodeId)?.name || item.nodeId}
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4">
-                                        <p className="text-sm font-medium">BN: {item.batchNumber}</p>
-                                        <p className="text-[10px] text-slate-400">EXP: {item.expiryDate}</p>
+                                    <td className="px-6 py-4 text-xs text-slate-500">
+                                        BN: {(item as any).batchNumber || 'N/A'}
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-12 text-sm font-bold">{item.quantity}</div>
+                                            <div className="w-12 text-sm font-bold">{item.totalQuantity}</div>
                                             <div className="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                                                 <div
-                                                    className={`h-full rounded-full ${item.quantity <= item.minStockLevel ? 'bg-amber-500' : 'bg-primary'}`}
-                                                    style={{ width: `${Math.min(100, (item.quantity / 200) * 100)}%` }}
+                                                    className={`h-full rounded-full ${item.totalQuantity <= item.minStockLevel ? 'bg-amber-500' : 'bg-primary'}`}
+                                                    style={{ width: `${Math.min(100, (item.totalQuantity / 200) * 100)}%` }}
                                                 />
                                             </div>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">
-                                        {item.quantity <= item.minStockLevel ? (
+                                        {item.totalQuantity <= item.minStockLevel ? (
                                             <span className="flex items-center gap-1.5 text-[10px] font-bold text-amber-600 uppercase">
                                                 <AlertTriangle className="w-3 h-3" /> Reorder Soon
                                             </span>

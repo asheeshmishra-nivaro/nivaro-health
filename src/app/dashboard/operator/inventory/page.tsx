@@ -58,7 +58,7 @@ export default function OperatorInventoryPage() {
                     </div>
                     <div>
                         <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Low Stock Alert</p>
-                        <p className="text-2xl font-bold text-slate-900">{items.filter(i => i.quantity <= i.minStockLevel).length}</p>
+                        <p className="text-2xl font-bold text-slate-900">{items.filter(i => i.totalQuantity <= i.minStockLevel).length}</p>
                     </div>
                 </div>
             </div>
