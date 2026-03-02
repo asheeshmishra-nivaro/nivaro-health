@@ -38,11 +38,13 @@ export default function DoctorPage() {
                         <div className="space-y-4">
                             <div className="flex justify-between items-center">
                                 <span className="text-sm text-slate-500">Pending</span>
-                                <span className="bg-amber-100 text-amber-700 px-2 py-1 rounded-md text-xs font-bold">08</span>
+                                <span className="bg-amber-100 text-amber-700 px-2 py-1 rounded-md text-xs font-bold">
+                                    {loading ? '...' : queue.length.toString().padStart(2, '0')}
+                                </span>
                             </div>
                             <div className="flex justify-between items-center">
                                 <span className="text-sm text-slate-500">Completed</span>
-                                <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md text-xs font-bold">14</span>
+                                <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md text-xs font-bold">--</span>
                             </div>
                         </div>
                     </div>
@@ -52,8 +54,8 @@ export default function DoctorPage() {
                         <h3 className="font-bold mb-2">Available Nodes</h3>
                         <p className="text-xs text-slate-400 mb-4">You are currently assigned to:</p>
                         <div className="p-3 bg-white/10 rounded-xl border border-white/10">
-                            <p className="text-sm font-bold">Main Service Node A</p>
-                            <p className="text-[10px] text-primary">ID: NODE-001</p>
+                            <p className="text-sm font-bold">Service Node Assignment</p>
+                            <p className="text-[10px] text-primary font-mono">ID: {user?.nodeId || 'NOT_ASSIGNED'}</p>
                         </div>
                     </div>
                 </div>

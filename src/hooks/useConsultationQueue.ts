@@ -12,12 +12,21 @@ export function useConsultationQueue(nodeId: string | undefined) {
     useEffect(() => {
         if (!nodeId) return;
 
-        const q = query(
-            collection(db, 'consultations'),
-            where('nodeId', '==', nodeId),
+        const consultRef = collection(db, 'consultations');
+        let q = query(
+            consultRef,
             where('status', 'in', ['pending', 'in-progress']),
             orderBy('createdAt', 'asc')
         );
+
+        if (nodeId !== 'GLOBAL') {
+            q = query(
+                consultRef,
+                where('nodeId', '==', nodeId),
+                where('status', 'in', ['pending', 'in-progress']),
+                orderBy('createdAt', 'asc')
+            );
+        }
 
         const unsubscribe = onSnapshot(q, (snapshot) => {
             const consultations = snapshot.docs.map(doc => ({
