@@ -1,7 +1,11 @@
 import Navbar from '@/components/landing/Navbar';
 import Hero from '@/components/landing/Hero';
+import ProblemSection from '@/components/landing/ProblemSection';
 import Features from '@/components/landing/Features';
+import NodeInfrastructure from '@/components/landing/NodeInfrastructure';
 import OperationalModel from '@/components/landing/OperationalModel';
+import GovernanceSection from '@/components/landing/GovernanceSection';
+import ScalabilitySection from '@/components/landing/ScalabilitySection';
 import PartnerForm from '@/components/landing/PartnerForm';
 import Footer from '@/components/landing/Footer';
 
@@ -10,8 +14,14 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
-      <Features />
-      <OperationalModel />
+      <div className="relative">
+        <ProblemSection />
+        <Features />
+        <NodeInfrastructure />
+        <OperationalModel />
+        <GovernanceSection />
+        <ScalabilitySection />
+      </div>
 
       <section id="partner" className="py-24 bg-slate-50 relative overflow-hidden">
         <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-white to-transparent" />

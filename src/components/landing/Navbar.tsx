@@ -23,10 +23,11 @@ export default function Navbar() {
                     {/* Desktop Nav */}
                     <div className="hidden md:flex items-center gap-8">
                         <Link href="#features" className="nav-link">Platform</Link>
-                        <Link href="#operational-model" className="nav-link">Model</Link>
+                        <Link href="#operational-model" className="nav-link">Infrastructure</Link>
+                        <Link href="#nodes" className="nav-link">Nodes</Link>
                         <Link href="#partner" className="nav-link">Partner</Link>
                         <Link href="/login" className="btn-primary py-2 px-6 text-sm">
-                            Let's Start
+                            Access System
                         </Link>
                     </div>
 
@@ -45,10 +46,11 @@ export default function Navbar() {
                 isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
             )}>
                 <Link href="#features" className="block nav-link text-lg px-2">Platform</Link>
-                <Link href="#operational-model" className="block nav-link text-lg px-2">Model</Link>
+                <Link href="#operational-model" className="block nav-link text-lg px-2">Infrastructure</Link>
+                <Link href="#nodes" className="block nav-link text-lg px-2">Nodes</Link>
                 <Link href="#partner" className="block nav-link text-lg px-2">Partner</Link>
                 <Link href="/login" className="block btn-primary text-center">
-                    Let's Start
+                    Access System
                 </Link>
             </div>
         </nav>

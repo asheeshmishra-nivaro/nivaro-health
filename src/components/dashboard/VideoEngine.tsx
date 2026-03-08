@@ -16,15 +16,17 @@ import {
     ExternalLink
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 interface VideoEngineProps {
     sessionId: string;
     patientName: string;
     onEnd: () => void;
     role: 'DOCTOR' | 'OPERATOR';
+    mode?: 'overlay' | 'inline';
 }
 
-export default function VideoEngine({ sessionId, patientName, onEnd, role }: VideoEngineProps) {
+export default function VideoEngine({ sessionId, patientName, onEnd, role, mode = 'overlay' }: VideoEngineProps) {
     const [isMuted, setIsMuted] = useState(false);
     const [isVideoOff, setIsVideoOff] = useState(false);
     const [duration, setDuration] = useState(0);
@@ -48,7 +50,20 @@ export default function VideoEngine({ sessionId, patientName, onEnd, role }: Vid
     };
 
     return (
-        <div className="fixed inset-0 z-[100] bg-slate-950 flex flex-col items-center justify-center overflow-hidden">
+        <div className={cn(
+            "bg-slate-950 flex flex-col items-center justify-center overflow-hidden transition-all duration-700 relative",
+            mode === 'overlay' ? "fixed inset-0 z-[100]" : "w-full h-full min-h-[400px] rounded-[3rem] border border-white/5"
+        )}>
+            {/* Connection Overlay */}
+            {status === 'connecting' && (
+                <div className="absolute inset-0 bg-slate-900 flex items-center justify-center z-50">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
+                        <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Initializing Uplink...</p>
+                    </div>
+                </div>
+            )}
+
             {/* Immersive Video Canvas */}
             <div className="relative w-full h-full flex items-center justify-center">
                 {/* Remote Stream Shell */}
@@ -77,16 +92,16 @@ export default function VideoEngine({ sessionId, patientName, onEnd, role }: Vid
                 <motion.div
                     drag
                     dragConstraints={{ left: -400, right: 400, top: -300, bottom: 300 }}
-                    className="absolute bottom-10 right-10 w-64 h-48 bg-slate-800 rounded-3xl border-2 border-white/10 shadow-2xl overflow-hidden cursor-move z-10"
+                    className="absolute top-10 right-10 w-48 h-36 bg-slate-800 rounded-3xl border-2 border-white/10 shadow-2xl overflow-hidden cursor-move z-10"
                 >
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-800/80 backdrop-blur-sm">
-                        <Camera className="w-8 h-8 text-white/20 mb-2" />
-                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">Local Feed</p>
+                        <Camera className="w-6 h-6 text-white/20 mb-2" />
+                        <p className="text-[8px] font-black text-white/30 uppercase tracking-widest">Local Feed</p>
                     </div>
                 </motion.div>
 
                 {/* Clinical Interface Overlay */}
-                <div className="absolute inset-0 p-8 pointer-events-none flex flex-col justify-between">
+                <div className="absolute inset-0 p-10 pointer-events-none flex flex-col justify-between">
                     <div className="flex justify-between items-start">
                         <motion.div
                             initial={{ x: -20, opacity: 0 }}
@@ -98,75 +113,60 @@ export default function VideoEngine({ sessionId, patientName, onEnd, role }: Vid
                                 <h2 className="text-xl font-display font-bold text-white tracking-tight">{patientName}</h2>
                             </div>
                             <div className="flex gap-4">
-                                <div className="flex items-center gap-2 text-white/60 text-xs font-bold uppercase tracking-widest">
+                                <div className="flex items-center gap-2 text-white/60 text-[10px] font-black uppercase tracking-widest">
                                     <Clock className="w-4 h-4" /> {formatTime(duration)}
                                 </div>
-                                <div className="flex items-center gap-2 text-white/60 text-xs font-bold uppercase tracking-widest">
+                                <div className="flex items-center gap-2 text-white/60 text-[10px] font-black uppercase tracking-widest">
                                     <Shield className="w-4 h-4 text-emerald-500" /> Encrypted
                                 </div>
                             </div>
                         </motion.div>
 
-                        <motion.div
-                            initial={{ x: 20, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            className="bg-black/40 backdrop-blur-xl p-4 rounded-3xl border border-white/10 pointer-events-auto"
-                        >
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-indigo-500/20 rounded-xl">
-                                    <Users className="w-5 h-5 text-indigo-400" />
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-bold text-white/40 uppercase">Assigned Node</p>
-                                    <p className="text-xs font-bold text-white">UP-WEST DISTRICT 04</p>
-                                </div>
+                        <div className="flex items-center gap-3 bg-black/40 backdrop-blur-xl p-4 rounded-3xl border border-white/10 pointer-events-auto">
+                            <div className="p-2 bg-indigo-500/20 rounded-xl">
+                                <Users className="w-5 h-5 text-indigo-400" />
                             </div>
-                        </motion.div>
+                            <div>
+                                <p className="text-[8px] font-black text-white/40 uppercase tracking-widest mb-0.5">Uplink Mode</p>
+                                <p className="text-[10px] font-black text-white uppercase tracking-widest">{mode === 'inline' ? 'Direct Console' : 'Overlay Mode'}</p>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Controls Dock */}
-                    <div className="flex flex-col items-center gap-6">
-                        <AnimatePresence>
-                            {status === 'connecting' && (
-                                <motion.div
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    exit={{ y: -20, opacity: 0 }}
-                                    className="bg-indigo-500 px-6 py-2 rounded-full text-white text-xs font-bold uppercase tracking-widest shadow-xl shadow-indigo-500/20"
-                                >
-                                    Establishing Clinical Link...
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-
-                        <div className="flex items-center gap-4 p-4 bg-white/5 backdrop-blur-2xl rounded-[2.5rem] border border-white/10 pointer-events-auto">
+                    {/* Floating Centered Bottom Control Bar */}
+                    <div className="flex justify-center pb-2">
+                        <div className="flex items-center gap-6 p-5 bg-white/10 backdrop-blur-3xl rounded-[3rem] border border-white/10 pointer-events-auto shadow-2xl">
                             <button
                                 onClick={() => setIsMuted(!isMuted)}
-                                className={`p-4 rounded-full transition-all ${isMuted ? 'bg-red-500 text-white shadow-lg shadow-red-500/20' : 'bg-white/10 text-white hover:bg-white/20'}`}
+                                className={cn(
+                                    "p-5 rounded-full transition-all hover:scale-110 active:scale-95",
+                                    isMuted ? "bg-red-500 text-white shadow-lg shadow-red-500/30" : "bg-white/10 text-white hover:bg-white/20"
+                                )}
                             >
                                 {isMuted ? <MicOff className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
                             </button>
 
                             <button
                                 onClick={() => setIsVideoOff(!isVideoOff)}
-                                className={`p-4 rounded-full transition-all ${isVideoOff ? 'bg-red-500 text-white shadow-lg shadow-red-500/20' : 'bg-white/10 text-white hover:bg-white/20'}`}
+                                className={cn(
+                                    "p-5 rounded-full transition-all hover:scale-110 active:scale-95",
+                                    isVideoOff ? "bg-red-500 text-white shadow-lg shadow-red-500/30" : "bg-white/10 text-white hover:bg-white/20"
+                                )}
                             >
                                 {isVideoOff ? <VideoOff className="w-6 h-6" /> : <Video className="w-6 h-6" />}
                             </button>
 
+                            <button className="p-5 bg-white/10 text-white rounded-full hover:bg-white/20 hover:scale-110 active:scale-95 transition-all">
+                                <Maximize2 className="w-6 h-6" />
+                            </button>
+
+                            <div className="w-px h-8 bg-white/10 mx-2" />
+
                             <button
                                 onClick={onEnd}
-                                className="mx-4 p-5 bg-red-600 hover:bg-red-700 text-white rounded-full transition-all shadow-2xl shadow-red-600/30 ring-8 ring-red-600/10"
+                                className="p-6 bg-red-600 hover:bg-red-700 text-white rounded-full transition-all shadow-2xl shadow-red-600/40 hover:scale-110 active:scale-95 ring-8 ring-red-600/10"
                             >
                                 <PhoneOff className="w-8 h-8" />
-                            </button>
-
-                            <button className="p-4 bg-white/10 text-white rounded-full hover:bg-white/20 transition-all">
-                                <MessageSquare className="w-6 h-6" />
-                            </button>
-
-                            <button className="p-4 bg-white/10 text-white rounded-full hover:bg-white/20 transition-all">
-                                <Maximize2 className="w-6 h-6" />
                             </button>
                         </div>
                     </div>

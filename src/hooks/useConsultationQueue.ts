@@ -5,7 +5,7 @@ import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestor
 import { db } from '@/lib/firebase';
 import { Consultation } from '@/types';
 
-export function useConsultationQueue(nodeId: string | undefined) {
+export function useConsultationQueue(nodeId: string | undefined, doctorId?: string) {
     const [queue, setQueue] = useState<Consultation[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -13,17 +13,43 @@ export function useConsultationQueue(nodeId: string | undefined) {
         if (!nodeId) return;
 
         const consultRef = collection(db, 'consultations');
+
+        // Base statuses for doctor or operator
+        const activeStatuses = doctorId
+            ? ['doctor-assigned', 'active']
+            : ['pending', 'doctor-assigned', 'active'];
+
         let q = query(
             consultRef,
-            where('status', 'in', ['pending', 'in-progress']),
+            where('status', 'in', activeStatuses),
             orderBy('createdAt', 'asc')
         );
 
         if (nodeId !== 'GLOBAL') {
+            if (doctorId) {
+                // Doctor specific query for their node
+                q = query(
+                    consultRef,
+                    where('nodeId', '==', nodeId),
+                    where('doctorId', '==', doctorId),
+                    where('status', 'in', activeStatuses),
+                    orderBy('createdAt', 'asc')
+                );
+            } else {
+                // Operator specific query for their node
+                q = query(
+                    consultRef,
+                    where('nodeId', '==', nodeId),
+                    where('status', 'in', activeStatuses),
+                    orderBy('createdAt', 'asc')
+                );
+            }
+        } else if (doctorId) {
+            // Global doctor query (if doctors move between nodes)
             q = query(
                 consultRef,
-                where('nodeId', '==', nodeId),
-                where('status', 'in', ['pending', 'in-progress']),
+                where('doctorId', '==', doctorId),
+                where('status', 'in', activeStatuses),
                 orderBy('createdAt', 'asc')
             );
         }
@@ -41,7 +67,7 @@ export function useConsultationQueue(nodeId: string | undefined) {
         });
 
         return () => unsubscribe();
-    }, [nodeId]);
+    }, [nodeId, doctorId]);
 
     return { queue, loading };
 }

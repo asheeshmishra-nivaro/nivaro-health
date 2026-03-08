@@ -1,0 +1,86 @@
+# Nivaro Health Operating Infrastructure: Technical Stack Report
+
+This document provides a comprehensive overview of the industrial-grade technology stack powering the Nivaro Health platform. The architecture is designed for clinical accountability, multi-node scalability, and real-time operational governance.
+
+---
+
+## 🏗️ Core Engineering Frameworks
+
+### **1. Next.js 16 (App Router)**
+- **Role**: The foundational React framework for the entire ecosystem.
+- **Why**: Used for Server-Side Rendering (SSR) for the landing pages (SEO optimized) and Client-Side Rendering (CSR) for the interactive clinical dashboards.
+- **Architecture**: Leverages Next.js API Routes (Serverless Functions) to interface with the Firebase Admin SDK securely.
+
+### **2. TypeScript**
+- **Role**: Type-safe programming language.
+- **Why**: Essential for a healthcare platform. It prevents common data-type bugs in complex modules like inventory management and clinical prescriptions, ensuring that `quantity` vs `totalQuantity` mismatches are caught at compile time.
+
+---
+
+## 🎨 Design & User Experience (UX)
+
+### **3. Tailwind CSS 4.0**
+- **Role**: Utility-first CSS framework.
+- **Design System**: Built on a premium, clinical-first palette (Primary: Indigo-600, Secondary: Emerald-500, Governance: Slate-900). 
+- **Responsiveness**: Powering the hybrid navigation (Sidebar for desktop, Bottom-Nav for mobile).
+
+### **4. Framer Motion**
+- **Role**: High-fidelity animation engine.
+- **Usage**: Smooth transitions between consultation steps, modal entrance effects, and dynamic loading states in the governance dashboards.
+
+### **5. Lucide React & Sonner**
+- **Icons**: Professional, lightweight SVG icons for medical and operational workflows.
+- **Notifications**: `sonner` provides toast notifications for critical events like low-stock alerts or successful patient registration.
+
+---
+
+## ⚙️ Backend & Infrastructure (Firebase Ecosystem)
+
+### **6. Cloud Firestore (NoSQL Database)**
+- **Model**: Document-based storage with sub-collections for high-fidelity inventory batch tracking.
+- **Security**: Granular Firestore Security Rules protect patient data, ensuring only doctors in assigned nodes can view specific clinical histories.
+
+### **7. Firebase Authentication**
+- **Role**: Identity and Access Management (IAM).
+- **Features**: Secure login for Admin, Doctors, and Operators with role-based persistence across sessions.
+
+### **8. Firebase Admin SDK**
+- **Role**: Server-side privileged operations.
+- **Usage**: Used in `src/app/api/` routes to create users with custom claims and roles, bypassing the standard client-side restrictions for higher security.
+
+### **9. Firebase Storage**
+- **Role**: Binary data storage.
+- **Usage**: Prepared for storing clinical scans, patient photos, and digitized prescription logs.
+
+---
+
+## 📊 Analytics & Clinical Intelligence
+
+### **10. Recharts**
+- **Role**: SVG-based charting library.
+- **Usage**: Powering the Governance Command Center with real-time visualization of node health, utilization rates, and inventory leakage indices.
+
+### **11. date-fns**
+- **Role**: Modern JavaScript date utility.
+- **Usage**: Managing complex clinical timelines, expiry date calculations for medicine batches, and audit log timestamps.
+
+---
+
+## 📱 Mobile Platform Architecture
+
+### **Progressive Web App (PWA)**
+- **Web Manifest**: Configured for "Add to Home Screen" support on iOS and Android.
+- **Mobile First**: Adaptive layouts for Clinical Workstations to enable tablet/phone usage in rural node settings.
+
+---
+
+## 🚀 Deployment & CI/CD Pipeline
+
+- **Hosting Provider**: Vercel (Optimized for Next.js).
+- **Version Control**: GitHub (Automated builds on every `main` push).
+- **Environment Management**: Strict segregation of `NEXT_PUBLIC` client keys and `FIREBASE_ADMIN` private server keys.
+
+---
+
+> [!IMPORTANT]
+> This stack represents a "Healthcare OS" approach, where the frontend provides a high-fidelity workstation and the backend provides a secure, immutable ledger for clinical events.

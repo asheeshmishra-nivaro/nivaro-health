@@ -31,6 +31,7 @@ service cloud.firestore {
     match /users/{userId} {
       allow read: if isSignedIn();
       allow write: if isAdmin();
+      allow update: if isSignedIn() && request.auth.uid == userId;
     }
 
     // Nodes collection
@@ -48,14 +49,14 @@ service cloud.firestore {
 
     // Consultations collection
     match /consultations/{consultationId} {
-      allow read: if isSignedIn() && (isAdmin() || isSameNode(resource.data.nodeId));
+      allow read: if isSignedIn() && (isAdmin() || isDoctor() || isOperator() || isSameNode(resource.data.nodeId));
       allow create: if isOperator() || isAdmin();
       allow update: if isDoctor() || isOperator() || isAdmin();
     }
 
     // Prescriptions collection
     match /prescriptions/{prescriptionId} {
-      allow read: if isSignedIn();
+      allow read: if isSignedIn() && (isAdmin() || isDoctor() || isOperator());
       allow create: if isDoctor();
       allow update: if isDoctor() || isAdmin();
       // Operators cannot write prescriptions
@@ -63,11 +64,11 @@ service cloud.firestore {
 
     // Inventory collection
     match /inventory/{nodeId} {
-      allow read: if isSignedIn() && (isAdmin() || isSameNode(nodeId));
+      allow read: if isSignedIn() && (isAdmin() || isSameNode(nodeId) || isDoctor());
       allow write: if isAdmin(); // Admin manages stock
       
       match /items/{itemId} {
-        allow read: if isSignedIn() && (isAdmin() || isSameNode(nodeId));
+        allow read: if isSignedIn() && (isAdmin() || isSameNode(nodeId) || isDoctor());
         allow write: if isAdmin();
         allow update: if isOperator() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['quantity']); 
         // Operator can update quantity (dispensing)
@@ -76,7 +77,7 @@ service cloud.firestore {
 
     // Activity Logs
     match /activityLogs/{logId} {
-      allow read: if isAdmin();
+      allow read: if isSignedIn() && (isAdmin() || isSameNode(resource.data.nodeId) || isDoctor());
       allow create: if isSignedIn();
       allow update, delete: if false; // Immutable logs
     }
@@ -89,7 +90,31 @@ service cloud.firestore {
 
     // Video Consultation Sessions
     match /videoSessions/{sessionId} {
-      allow read, write: if isSignedIn() && (isAdmin() || isSameNode(resource.data.nodeId) || isSameNode(request.resource.data.nodeId));
+      allow read, write: if isSignedIn() && (isAdmin() || isDoctor() || isOperator() || isSameNode(resource.data.nodeId) || isSameNode(request.resource.data.nodeId));
+    }
+
+    // Operator Wallet Transactions
+    match /operator_wallet_transactions/{transactionId} {
+      allow read: if isSignedIn() && (isAdmin() || request.auth.uid == resource.data.operatorId);
+      allow create: if isSignedIn(); // System/Logic creates this
+      allow update, delete: if false;
+    }
+
+    // App Notifications (Phase 3/4)
+    match /notifications/{notificationId} {
+      allow read: if isSignedIn() && request.auth.uid == resource.data.userId;
+      allow create: if isSignedIn(); // Other users/system can notify
+      allow update: if isSignedIn() && request.auth.uid == resource.data.userId 
+                      && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow delete: if false;
+    }
+
+    // Diagnostics Orders (Phase 3/4)
+    match /diagnostics_orders/{orderId} {
+      allow read: if isSignedIn() && (isAdmin() || isDoctor() || isOperator());
+      allow create: if isDoctor() || isAdmin();
+      allow update: if isOperator() || isDoctor() || isAdmin();
+      allow delete: if isAdmin();
     }
   }
 }

@@ -5,16 +5,16 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
     LayoutDashboard,
-    Users,
-    MapPin,
-    History,
     Stethoscope,
-    Package,
-    UserPlus,
-    ClipboardList,
+    Users,
+    History,
+    BarChart3,
     LogOut,
     Shield,
-    Activity
+    Activity,
+    Settings,
+    Package,
+    MapPin
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
@@ -23,33 +23,54 @@ import { signOut } from 'firebase/auth';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 
-const adminLinks = [
-    { name: 'Overview', icon: LayoutDashboard, href: '/dashboard/admin' },
-    { name: 'Nodes', icon: MapPin, href: '/dashboard/admin/nodes' },
-    { name: 'Users', icon: Users, href: '/dashboard/admin/users' },
-    { name: 'Inventory', icon: Package, href: '/dashboard/admin/inventory' },
-    { name: 'Audit Logs', icon: History, href: '/dashboard/admin/logs' },
-];
-
-const doctorLinks = [
-    { name: 'Consultations', icon: Stethoscope, href: '/dashboard/doctor' },
-    { name: 'Patients', icon: Users, href: '/dashboard/doctor/patients' },
-    { name: 'History', icon: History, href: '/dashboard/doctor/history' },
-];
-
-const operatorLinks = [
-    { name: 'Operations', icon: Activity, href: '/dashboard/operator' },
-    { name: 'Register Patient', icon: UserPlus, href: '/dashboard/operator/register' },
-    { name: 'Inventory', icon: Package, href: '/dashboard/operator/inventory' },
-    { name: 'Queue', icon: ClipboardList, href: '/dashboard/operator/queue' },
-];
-
 export default function Sidebar() {
     const pathname = usePathname();
     const { role, user } = useAuth();
     const router = useRouter();
 
-    const links = role === 'ADMIN' ? adminLinks : role === 'DOCTOR' ? doctorLinks : operatorLinks;
+    const getLinks = () => {
+        const base = [
+            { name: 'Dashboard', icon: LayoutDashboard, href: `/dashboard/${role?.toLowerCase()}` },
+        ];
+
+        if (role === 'ADMIN') {
+            return [
+                ...base,
+                { name: 'Consultations', icon: Stethoscope, href: '/dashboard/admin/consultations' },
+                { name: 'Patients', icon: Users, href: '/dashboard/admin/patients' },
+                { name: 'Clinical Nodes', icon: MapPin, href: '/dashboard/admin/nodes' },
+                { name: 'Clinical Authority', icon: Shield, href: '/dashboard/admin/users' },
+                { name: 'History', icon: History, href: '/dashboard/admin/logs' },
+                { name: 'Analytics', icon: BarChart3, href: '/dashboard/admin/analytics' },
+                { name: 'Inventory', icon: Package, href: '/dashboard/admin/inventory' },
+            ];
+        }
+
+        if (role === 'DOCTOR') {
+            return [
+                ...base,
+                { name: 'Consultations', icon: Stethoscope, href: '/dashboard/doctor' },
+                { name: 'Patients', icon: Users, href: '/dashboard/doctor/patients' },
+                { name: 'Consultation Logs', icon: History, href: '/dashboard/doctor/history' },
+                { name: 'Analytics', icon: BarChart3, href: '/dashboard/doctor/analytics' },
+            ];
+        }
+
+        if (role === 'OPERATOR') {
+            return [
+                ...base,
+                { name: 'Consultations', icon: Activity, href: '/dashboard/operator/queue' },
+                { name: 'Patients', icon: Users, href: '/dashboard/operator/patients' },
+                { name: 'History', icon: History, href: '/dashboard/operator/history' },
+                { name: 'Analytics', icon: BarChart3, href: '/dashboard/operator/earnings' },
+                { name: 'Inventory', icon: Package, href: '/dashboard/operator/inventory' },
+            ];
+        }
+
+        return base;
+    };
+
+    const links = getLinks();
 
     const handleSignOut = async () => {
         try {
@@ -65,15 +86,18 @@ export default function Sidebar() {
         <>
             {/* Desktop Sidebar */}
             <div className="hidden lg:flex w-64 h-screen bg-slate-900 text-white flex-col fixed left-0 top-0 z-50">
-                <div className="p-6 flex items-center gap-3 border-b border-slate-800">
-                    <Shield className="w-8 h-8 text-primary" />
+                <div className="p-8 flex items-center gap-3 border-b border-white/5">
+                    <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
+                        <Shield className="w-6 h-6 text-white" />
+                    </div>
                     <div className="flex flex-col">
-                        <span className="font-display font-bold text-lg tracking-tight">NIVARO</span>
-                        <span className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em]">Operating System</span>
+                        <span className="font-display font-black text-xl tracking-tight leading-none">NIVARO</span>
+                        <span className="text-[8px] text-slate-500 font-bold uppercase tracking-[0.3em] mt-1">Health OS</span>
                     </div>
                 </div>
 
-                <div className="flex-1 overflow-y-auto py-6 px-4 space-y-2">
+                <div className="flex-1 overflow-y-auto py-8 px-4 space-y-1">
+                    <p className="px-4 mb-4 text-[10px] font-bold text-slate-600 uppercase tracking-widest">Navigation</p>
                     {links.map((link) => {
                         const isActive = pathname === link.href;
                         return (
@@ -81,41 +105,57 @@ export default function Sidebar() {
                                 key={link.name}
                                 href={link.href}
                                 className={cn(
-                                    "flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
+                                    "flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-300 group relative",
                                     isActive
-                                        ? "bg-primary text-white shadow-lg shadow-primary/20"
-                                        : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                                        ? "bg-white/5 text-white"
+                                        : "text-slate-500 hover:text-white"
                                 )}
                             >
-                                <link.icon className={cn("w-5 h-5", isActive ? "text-white" : "text-slate-500 group-hover:text-primary")} />
-                                <span className="font-medium">{link.name}</span>
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="activeGlow"
+                                        className="absolute inset-0 bg-primary/10 rounded-2xl blur-sm"
+                                    />
+                                )}
+                                <link.icon className={cn(
+                                    "w-5 h-5 transition-colors duration-300 relative z-10",
+                                    isActive ? "text-primary" : "group-hover:text-primary"
+                                )} />
+                                <span className="font-bold text-sm relative z-10 tracking-tight">{link.name}</span>
+                                {isActive && (
+                                    <div className="absolute right-4 w-1.5 h-1.5 rounded-full bg-primary" />
+                                )}
                             </Link>
                         );
                     })}
                 </div>
 
-                <div className="p-4 border-t border-slate-800">
-                    <div className="bg-slate-800/50 p-4 rounded-2xl mb-4">
-                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Active User</p>
-                        <p className="text-sm font-bold truncate">{user?.name || 'User'}</p>
-                        <p className="text-[10px] text-primary font-bold bg-primary/10 inline-block px-2 py-0.5 rounded mt-1">
-                            {role}
-                        </p>
+                <div className="p-6 border-t border-white/5">
+                    <div className="bg-white/[0.03] p-5 rounded-[2rem] mb-6 border border-white/[0.05]">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center font-bold text-primary border border-white/5">
+                                {user?.name?.[0]}
+                            </div>
+                            <div className="flex-1 overflow-hidden">
+                                <p className="text-sm font-bold text-white truncate">{user?.name || 'User'}</p>
+                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest truncate">{role}</p>
+                            </div>
+                        </div>
+                        <button
+                            onClick={handleSignOut}
+                            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 hover:bg-rose-500/10 text-slate-400 hover:text-rose-400 transition-all font-bold text-[10px] uppercase tracking-widest"
+                        >
+                            <LogOut className="w-4 h-4" />
+                            <span>Exit Session</span>
+                        </button>
                     </div>
-
-                    <button
-                        onClick={handleSignOut}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-red-500/10 hover:text-red-400 transition-all font-bold text-xs uppercase tracking-widest"
-                    >
-                        <LogOut className="w-5 h-5" />
-                        <span>Sign Out</span>
-                    </button>
+                    <p className="text-center text-[8px] text-slate-600 font-bold uppercase tracking-widest">Nivaro V2.0 PRO</p>
                 </div>
             </div>
 
             {/* Mobile Bottom Navigation */}
-            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-2 py-3 z-50 flex justify-around items-center">
-                {links.map((link) => {
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-white/5 px-2 py-3 z-50 flex justify-around items-center">
+                {links.slice(0, 4).map((link) => {
                     const isActive = pathname === link.href;
                     return (
                         <Link
@@ -123,34 +163,24 @@ export default function Sidebar() {
                             href={link.href}
                             className={cn(
                                 "flex flex-col items-center gap-1.5 px-3 py-2 rounded-xl transition-all relative",
-                                isActive ? "text-primary" : "text-slate-400"
+                                isActive ? "text-primary" : "text-slate-500"
                             )}
                         >
                             <link.icon className={cn("w-5 h-5", isActive ? "stroke-[2.5px]" : "stroke-[2px]")} />
-                            <span className="text-[10px] font-bold uppercase tracking-tight">{link.name}</span>
-                            {isActive && (
-                                <motion.div
-                                    layoutId="activeTab"
-                                    className="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-full"
-                                />
-                            )}
+                            <span className="text-[8px] font-bold uppercase tracking-tight">{link.name}</span>
                         </Link>
                     );
                 })}
             </div>
 
             {/* Mobile Top Header */}
-            <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-100 px-6 flex items-center justify-between z-40">
-                <div className="flex items-center gap-2">
-                    <Shield className="w-6 h-6 text-primary" />
-                    <span className="font-display font-black text-sm tracking-tight text-slate-900">NIVARO OS</span>
+            <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-slate-900 border-b border-white/5 px-6 flex items-center justify-between z-40">
+                <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                        <Shield className="w-5 h-5 text-white" />
+                    </div>
+                    <span className="font-display font-black text-sm tracking-tight text-white uppercase">NIVARO OS</span>
                 </div>
-                <button
-                    onClick={handleSignOut}
-                    className="p-2 rounded-xl bg-slate-50 text-slate-400 hover:text-red-500 transition-colors"
-                >
-                    <LogOut className="w-5 h-5" />
-                </button>
             </div>
 
             {/* Mobile Spacer */}

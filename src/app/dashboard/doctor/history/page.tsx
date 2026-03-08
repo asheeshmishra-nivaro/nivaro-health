@@ -36,8 +36,8 @@ export default function DoctorHistoryPage() {
     return (
         <DashboardLayout allowedRoles={['DOCTOR']}>
             <div className="mb-8">
-                <h1 className="text-3xl font-display font-bold text-slate-900">Clinical History</h1>
-                <p className="text-slate-500">Review your past consultations and clinical outcomes.</p>
+                <h1 className="text-3xl font-display font-bold text-slate-900">Clinical Consultation Logs</h1>
+                <p className="text-slate-500">Audit trail of finalized clinical sessions.</p>
             </div>
 
             <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col min-h-[600px]">

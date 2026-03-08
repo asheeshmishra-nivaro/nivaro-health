@@ -79,7 +79,11 @@ export default function DoctorPatientsPage() {
                     ) : (
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
                             {filteredPatients.map((patient) => (
-                                <div key={patient.id} className="group p-6 rounded-3xl border border-slate-100 bg-slate-50/30 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all cursor-pointer relative overflow-hidden">
+                                <Link
+                                    key={patient.id}
+                                    href={`/dashboard/doctor/patients/${patient.id}`}
+                                    className="group p-6 rounded-3xl border border-slate-100 bg-slate-50/30 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all cursor-pointer relative overflow-hidden block"
+                                >
                                     <div className="flex gap-4 items-start mb-6">
                                         <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-primary shadow-sm">
                                             <UserCircle className="w-8 h-8" />
@@ -107,7 +111,7 @@ export default function DoctorPatientsPage() {
                                             <ChevronRight className="w-4 h-4" />
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     )}
