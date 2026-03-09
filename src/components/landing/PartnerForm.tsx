@@ -53,7 +53,7 @@ export default function PartnerForm() {
     }
 
     return (
-        <div className="bg-white rounded-3xl p-8 lg:p-12 border border-slate-100 shadow-2xl shadow-primary/5 relative overflow-hidden">
+        <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-12 border border-slate-100 shadow-2xl shadow-primary/5 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-10 -mt-10" />
 
             <div className="relative z-10">

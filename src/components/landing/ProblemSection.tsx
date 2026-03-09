@@ -42,9 +42,9 @@ export default function ProblemSection() {
                 <div className="grid lg:grid-cols-12 gap-16">
                     <div className="lg:col-span-5">
                         <h2 className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-4">Infrastructure Narrative</h2>
-                        <h3 className="text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-8 leading-[1.15]">
-                            India's Rural Healthcare <br />
-                            <span className="text-primary tracking-tight">Infrastructure Gap</span>
+                        <h3 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-8 leading-tight lg:leading-[1.15]">
+                            India's Rural Healthcare
+                            <span className="text-primary tracking-tight block sm:inline"> Infrastructure Gap</span>
                         </h3>
 
                         <div className="bg-slate-50 border-l-4 border-primary p-8 rounded-r-2xl mb-10">

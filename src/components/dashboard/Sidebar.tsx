@@ -154,7 +154,7 @@ export default function Sidebar() {
             </div>
 
             {/* Mobile Bottom Navigation */}
-            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-white/5 px-2 py-3 z-50 flex justify-around items-center">
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-white/5 px-2 py-3 pb-[calc(12px+env(safe-area-inset-bottom))] z-50 flex justify-around items-center">
                 {links.slice(0, 4).map((link) => {
                     const isActive = pathname === link.href;
                     return (

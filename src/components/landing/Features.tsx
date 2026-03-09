@@ -57,7 +57,7 @@ export default function Features() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <h2 className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-4">The Ecosystem</h2>
-          <h3 className="text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6">A Structured Telemedicine Infrastructure</h3>
+          <h3 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6">A Structured Telemedicine Infrastructure</h3>
           <p className="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed">
             The Nivaro engine provides a complete technological stack for high-efficiency clinical
             delivery at the village level.
@@ -72,7 +72,7 @@ export default function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className={`p-10 rounded-[2.5rem] border border-slate-100 transition-all hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 group ${idx === 3 || idx === 4 ? 'lg:col-span-1' : ''}`}
+              className={`p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] border border-slate-100 transition-all hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 group ${idx === 3 || idx === 4 ? 'lg:col-span-1' : ''}`}
               style={{
                 backgroundColor: 'white'
               }}
@@ -90,7 +90,7 @@ export default function Features() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="p-10 rounded-[2.5rem] bg-slate-900 text-white flex flex-col justify-center items-center text-center group overflow-hidden relative"
+            className="p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] bg-slate-900 text-white flex flex-col justify-center items-center text-center group overflow-hidden relative"
           >
             <div className="absolute top-0 right-0 p-8 opacity-10 rotate-12 transform group-hover:scale-110 transition-transform duration-700">
               <ShieldCheck className="w-40 h-40" />

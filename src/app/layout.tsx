@@ -11,10 +11,17 @@ export const metadata: Metadata = {
   title: 'Nivaro Health | Enterprise Healthcare Operating System',
   description: 'Scalable healthcare governance infrastructure for rural and semi-urban clinical operations.',
   manifest: '/manifest.json',
+  themeColor: '#020617',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
     title: 'Nivaro Health',
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
   },
   formatDetection: {
     telephone: false,

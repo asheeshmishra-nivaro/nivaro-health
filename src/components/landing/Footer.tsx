@@ -46,7 +46,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-slate-200 flex flex-col md:row justify-between items-center gap-4">
+                <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-slate-500 text-sm">
                         © {new Date().getFullYear()} Nivaro Health Technologies. All rights reserved.
                     </p>

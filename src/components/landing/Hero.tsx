@@ -18,10 +18,10 @@ export default function Hero() {
                         transition={{ duration: 0.6 }}
                         className="lg:col-span-6"
                     >
-                        <h1 className="text-5xl lg:text-7xl font-display font-extrabold text-slate-900 leading-[1.05] mb-8">
-                            The Operating System <br />
-                            <span className="text-primary tracking-tight">for Rural Healthcare</span> <br />
-                            <span className="text-slate-400 italic">Infrastructure</span>
+                        <h1 className="text-3xl sm:text-4xl lg:text-7xl font-display font-extrabold text-slate-900 leading-tight lg:leading-[1.05] mb-8">
+                            The Operating System
+                            <span className="text-primary tracking-tight block sm:inline italic sm:not-italic"> for Rural Healthcare</span>
+                            <span className="text-slate-400 italic block"> Infrastructure</span>
                         </h1>
 
                         <p className="text-lg text-slate-600 mb-10 leading-relaxed font-medium max-w-2xl">
@@ -31,10 +31,10 @@ export default function Hero() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center gap-4">
-                            <Link href="/login" className="w-full sm:w-auto btn-primary flex items-center justify-center gap-2 px-8 py-5 text-lg shadow-xl shadow-primary/20">
+                            <Link href="/login" className="w-full sm:w-auto btn-primary flex items-center justify-center gap-2 px-6 py-4 sm:px-8 sm:py-5 text-base sm:text-lg shadow-xl shadow-primary/20">
                                 Access Healthcare System <ArrowRight className="w-5 h-5" />
                             </Link>
-                            <Link href="#features" className="w-full sm:w-auto btn-outline flex items-center justify-center px-8 py-5 text-lg">
+                            <Link href="#features" className="w-full sm:w-auto btn-outline flex items-center justify-center px-6 py-4 sm:px-8 sm:py-5 text-base sm:text-lg">
                                 Explore Platform
                             </Link>
                         </div>

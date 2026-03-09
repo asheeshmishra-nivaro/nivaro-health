@@ -10,7 +10,7 @@ export default function NodeInfrastructure() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-20">
                     <h2 className="text-sm font-bold text-primary uppercase tracking-[0.2em] mb-4">Core Innovation</h2>
-                    <h3 className="text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tight">Node-Based Healthcare Delivery</h3>
+                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 tracking-tight">Node-Based Healthcare Delivery</h3>
                     <p className="text-slate-600 max-w-2xl mx-auto leading-relaxed text-lg font-medium">
                         We are building the infrastructure for rural medicine, not just an app. Our model
                         transforms local operators into high-efficiency clinical nodes.
