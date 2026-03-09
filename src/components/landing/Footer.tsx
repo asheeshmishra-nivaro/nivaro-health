@@ -32,7 +32,7 @@ export default function Footer() {
                         <ul className="space-y-4">
                             <li className="flex items-center gap-3 text-slate-600">
                                 <Mail className="w-4 h-4 text-primary" />
-                                founder@nivarotech.in
+                                info@nivarotech.in
                             </li>
                             <li className="flex items-center gap-3 text-slate-600">
                                 <Phone className="w-4 h-4 text-primary" />
