@@ -7,7 +7,7 @@ import { ArrowRight, ShieldCheck } from 'lucide-react';
 
 export default function Hero() {
     return (
-        <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
+        <section className="relative pt-24 pb-12 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
             <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-slate-50 to-transparent pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -18,13 +18,13 @@ export default function Hero() {
                         transition={{ duration: 0.6 }}
                         className="lg:col-span-6"
                     >
-                        <h1 className="text-3xl sm:text-4xl lg:text-7xl font-display font-extrabold text-slate-900 leading-tight lg:leading-[1.05] mb-8">
+                        <h1 className="text-2xl sm:text-4xl lg:text-7xl font-display font-extrabold text-slate-900 leading-tight lg:leading-[1.05] mb-6 lg:mb-8">
                             The Operating System
                             <span className="text-primary tracking-tight block sm:inline italic sm:not-italic"> for Rural Healthcare</span>
                             <span className="text-slate-400 italic block"> Infrastructure</span>
                         </h1>
 
-                        <p className="text-lg text-slate-600 mb-10 leading-relaxed font-medium max-w-2xl">
+                        <p className="text-base sm:text-lg text-slate-600 mb-6 lg:mb-10 leading-relaxed font-medium max-w-2xl">
                             Nivaro Health connects rural healthcare operators with licensed doctors
                             through a node-based telemedicine platform that manages consultations,
                             prescriptions, diagnostics, and medicine distribution in a unified system.
