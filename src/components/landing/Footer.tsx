@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield, Mail, Phone, MapPin } from 'lucide-react';
+import Logo from '@/components/ui/Logo';
 
 export default function Footer() {
     return (
@@ -8,10 +9,7 @@ export default function Footer() {
                 <div className="grid md:grid-cols-4 gap-12 mb-12">
                     <div className="col-span-1 md:col-span-2">
                         <div className="flex items-center gap-2 mb-6">
-                            <Shield className="w-8 h-8 text-primary" />
-                            <span className="text-xl font-display font-bold text-primary tracking-tight uppercase">
-                                Nivaro <span className="text-secondary">Health</span>
-                            </span>
+                            <Logo width={32} height={32} />
                         </div>
                         <p className="text-slate-600 max-w-sm leading-relaxed">
                             Advancing rural healthcare through structured clinical governance and node-based operational excellence.

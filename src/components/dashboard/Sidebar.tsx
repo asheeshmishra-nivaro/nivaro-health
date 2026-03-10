@@ -22,6 +22,7 @@ import { auth } from '@/lib/firebase';
 import { signOut } from 'firebase/auth';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
+import Logo from '@/components/ui/Logo';
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -86,14 +87,8 @@ export default function Sidebar() {
         <>
             {/* Desktop Sidebar */}
             <div className="hidden lg:flex w-64 h-screen bg-slate-900 text-white flex-col fixed left-0 top-0 z-50">
-                <div className="p-8 flex items-center gap-3 border-b border-white/5">
-                    <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
-                        <Shield className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="font-display font-black text-xl tracking-tight leading-none">NIVARO</span>
-                        <span className="text-[8px] text-slate-500 font-bold uppercase tracking-[0.3em] mt-1">Health OS</span>
-                    </div>
+                <div className="p-8 border-b border-white/5">
+                    <Logo width={40} height={40} light />
                 </div>
 
                 <div className="flex-1 overflow-y-auto py-8 px-4 space-y-1">
@@ -176,10 +171,7 @@ export default function Sidebar() {
             {/* Mobile Top Header */}
             <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-slate-900 border-b border-white/5 px-6 flex items-center justify-between z-40">
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                        <Shield className="w-5 h-5 text-white" />
-                    </div>
-                    <span className="font-display font-black text-sm tracking-tight text-white uppercase">NIVARO OS</span>
+                    <Logo width={32} height={32} light />
                 </div>
             </div>
 

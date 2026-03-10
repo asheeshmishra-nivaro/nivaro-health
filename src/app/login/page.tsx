@@ -9,6 +9,7 @@ import { Shield, Lock, Mail, Loader2, ArrowLeft, Activity, Users, Globe, Chevron
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Logo from '@/components/ui/Logo';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -151,9 +152,7 @@ export default function LoginPage() {
                         transition={{ delay: 0.2 }}
                     >
                         <div className="mb-12">
-                            <div className="w-14 h-14 rounded-2xl bg-slate-900 flex items-center justify-center mb-6 shadow-2xl shadow-slate-900/20">
-                                <Shield className="w-7 h-7 text-white" />
-                            </div>
+                            <Logo width={56} height={56} iconOnly className="mb-6" />
                             <h1 className="text-4xl font-display font-black text-slate-900 tracking-tight mb-2">Governance Access</h1>
                             <p className="text-slate-500 font-medium">Initialize your clinical or operational terminal.</p>
                         </div>
