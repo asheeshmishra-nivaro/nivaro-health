@@ -7,24 +7,24 @@ import { ArrowRight, ShieldCheck } from 'lucide-react';
 
 export default function Hero() {
     return (
-        <section className="relative pt-24 pb-12 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
+        <section className="relative min-h-screen lg:min-h-0 py-10 sm:py-12 lg:py-20 overflow-visible bg-white">
             <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-slate-50 to-transparent pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid lg:grid-cols-12 gap-12 items-center">
+            <div className="container mx-auto px-6 lg:px-8 relative z-10">
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="lg:col-span-6"
+                        className="max-w-xl"
                     >
-                        <h1 className="text-2xl sm:text-4xl lg:text-7xl font-display font-extrabold text-slate-900 leading-tight lg:leading-[1.05] mb-6 lg:mb-8">
+                        <h1 className="text-3xl sm:text-4xl lg:text-7xl font-display font-extrabold text-slate-900 leading-tight lg:leading-[1.05] mb-6 lg:mb-8">
                             The Operating System
                             <span className="text-primary tracking-tight block sm:inline italic sm:not-italic"> for Rural Healthcare</span>
                             <span className="text-slate-400 italic block"> Infrastructure</span>
                         </h1>
 
-                        <p className="text-base sm:text-lg text-slate-600 mb-6 lg:mb-10 leading-relaxed font-medium max-w-2xl">
+                        <p className="text-base sm:text-lg text-slate-600 mb-6 lg:mb-10 leading-relaxed font-medium">
                             Nivaro Health connects rural healthcare operators with licensed doctors
                             through a node-based telemedicine platform that manages consultations,
                             prescriptions, diagnostics, and medicine distribution in a unified system.
@@ -44,9 +44,9 @@ export default function Hero() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="lg:col-span-6"
+                        className="w-full max-w-full flex flex-col gap-4 mt-6 lg:mt-0"
                     >
-                        <div className="bg-slate-50 rounded-[2.5rem] p-8 border border-slate-100 shadow-sm relative overflow-hidden group">
+                        <div className="bg-slate-50 rounded-[2.5rem] p-6 sm:p-8 border border-slate-100 shadow-sm relative overflow-hidden group">
                             <div className="absolute top-0 left-0 w-full h-1 bg-primary transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
 
                             <div className="flex items-center justify-between mb-8">
@@ -57,8 +57,8 @@ export default function Hero() {
                                 </div>
                             </div>
 
-                            {/* Grid Container: Desktop 2x3, Mobile Scrollable */}
-                            <div className="flex lg:grid lg:grid-cols-2 gap-4 overflow-x-auto pb-4 lg:pb-0 lg:overflow-visible no-scrollbar -mx-2 lg:mx-0 px-2 lg:px-0 scroll-smooth snap-x">
+                            {/* Card Grid: 1 col on mobile, 2 col on sm+ */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                                 {[
                                     { label: "Patient Entry", sub: "Edge Capture", icon: "👤", color: "bg-white" },
                                     { label: "Operator Node", sub: "Clinical Vitals", icon: "🏢", color: "bg-blue-50/50" },
@@ -69,7 +69,7 @@ export default function Hero() {
                                 ].map((step, i) => (
                                     <div
                                         key={i}
-                                        className={`flex-shrink-0 w-[240px] lg:w-full snap-center p-5 rounded-2xl border border-slate-200/60 shadow-sm transition-all hover:scale-[1.02] hover:shadow-md ${step.color} relative overflow-hidden group/card`}
+                                        className={`p-5 rounded-2xl border border-slate-200/60 shadow-sm transition-all hover:scale-[1.02] hover:shadow-md ${step.color} relative overflow-hidden group/card`}
                                     >
                                         <div className="absolute top-0 right-0 p-3 opacity-0 group-hover/card:opacity-10 transition-opacity">
                                             <div className="w-12 h-12 rounded-full border border-current" />
@@ -86,20 +86,14 @@ export default function Hero() {
                                     </div>
                                 ))}
                             </div>
-
-                            {/* Mobile Hint */}
-                            <div className="lg:hidden mt-4 flex justify-center">
-                                <div className="flex gap-1">
-                                    {[0, 1, 2].map((i) => (
-                                        <div key={i} className={`w-1 h-1 rounded-full ${i === 0 ? 'bg-primary' : 'bg-slate-200'}`} />
-                                    ))}
-                                </div>
-                            </div>
                         </div>
                     </motion.div>
                 </div>
             </div>
         </section>
+                </div >
+            </div >
+        </section >
     );
 }
 
