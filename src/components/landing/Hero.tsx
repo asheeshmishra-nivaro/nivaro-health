@@ -1,96 +1,80 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { ArrowRight, Activity, Database, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
     return (
-        <section className="relative min-h-screen lg:min-h-0 py-10 sm:py-12 lg:py-20 overflow-visible bg-white">
-            <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-slate-50 to-transparent pointer-events-none" />
+        <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden hero-gradient">
+            <div className="dot-pattern absolute inset-0 opacity-[0.4] pointer-events-none" />
 
-            <div className="container mx-auto px-6 lg:px-8 relative z-10">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="max-w-xl"
+                        transition={{ duration: 0.5 }}
                     >
-                        <h1 className="text-3xl sm:text-4xl lg:text-7xl font-display font-extrabold text-slate-900 leading-tight lg:leading-[1.05] mb-6 lg:mb-8">
-                            The Operating System
-                            <span className="text-primary tracking-tight block sm:inline italic sm:not-italic"> for Rural Healthcare</span>
-                            <span className="text-slate-400 italic block"> Infrastructure</span>
+                        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-primary text-sm font-semibold mb-6">
+                            <ShieldCheck className="w-4 h-4" />
+                            Enterprise Healthcare Governance
+                        </span>
+
+                        <h1 className="text-5xl lg:text-7xl font-display font-extrabold text-slate-900 leading-tight mb-6">
+                            Clinical Governance <br />
+                            <span className="text-primary italic">at Infrastructure Scale</span>
                         </h1>
 
-                        <p className="text-base sm:text-lg text-slate-600 mb-6 lg:mb-10 leading-relaxed font-medium">
-                            Nivaro Health connects rural healthcare operators with licensed doctors
-                            through a node-based telemedicine platform that manages consultations,
-                            prescriptions, diagnostics, and medicine distribution in a unified system.
+                        <p className="max-w-3xl mx-auto text-xl text-slate-600 mb-10 leading-relaxed font-medium">
+                            Nivaro Health transforms fragmented healthcare into a structured, node-based
+                            operating infrastructure. Eliminating consultation gaps, inventory leakage,
+                            and traceability loss through centralized governance.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center gap-4">
-                            <Link href="/login" className="w-full sm:w-auto btn-primary flex items-center justify-center gap-2 px-6 py-4 sm:px-8 sm:py-5 text-base sm:text-lg shadow-xl shadow-primary/20">
-                                Access Healthcare System <ArrowRight className="w-5 h-5" />
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                            <Link href="/login" className="btn-primary flex items-center gap-2 text-lg px-8 py-4">
+                                Launch Infrastructure <ArrowRight className="w-5 h-5" />
                             </Link>
-                            <Link href="#features" className="w-full sm:w-auto btn-outline flex items-center justify-center px-6 py-4 sm:px-8 sm:py-5 text-base sm:text-lg">
-                                Explore Platform
+                            <Link href="#operational-model" className="btn-outline text-lg px-8 py-4">
+                                System Philosophy
                             </Link>
+                        </div>
+
+                        {/* Problem Layer Tags */}
+                        <div className="flex flex-wrap justify-center gap-3 mb-12">
+                            {['Zero Leakage', 'Node Governance', 'Full Traceability', 'Clinical Accountability'].map((tag) => (
+                                <span key={tag} className="px-4 py-1.5 rounded-full bg-slate-900 text-slate-100 text-[10px] font-bold uppercase tracking-widest">
+                                    {tag}
+                                </span>
+                            ))}
                         </div>
                     </motion.div>
 
+                    {/* Stats/Badge area */}
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="w-full max-w-full flex flex-col gap-4 mt-6 lg:mt-0"
+                        className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8"
                     >
-                        <div className="bg-slate-50 rounded-[2.5rem] p-6 sm:p-8 border border-slate-100 shadow-sm relative overflow-hidden group">
-                            <div className="absolute top-0 left-0 w-full h-1 bg-primary transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
-
-                            <div className="flex items-center justify-between mb-8">
-                                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">System Architecture</h4>
-                                <div className="flex gap-1.5">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                    <div className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Network Live</div>
+                        {[
+                            { icon: Activity, label: "Clinical Accountability", color: "text-blue-600" },
+                            { icon: Database, label: "Node-Based Scalability", color: "text-teal-600" },
+                            { icon: ShieldCheck, label: "Structured Governance", color: "text-indigo-600" },
+                            { icon: Activity, label: "Inventory Lifecycle", color: "text-cyan-600" },
+                        ].map((item, idx) => (
+                            <div key={idx} className="flex flex-col items-center gap-3">
+                                <div className={`p-3 rounded-xl bg-white shadow-sm border border-slate-100 ${item.color}`}>
+                                    <item.icon className="w-6 h-6" />
                                 </div>
+                                <span className="text-sm font-bold text-slate-700 tracking-wide uppercase">{item.label}</span>
                             </div>
-
-                            {/* Card Grid: 1 col on mobile, 2 col on sm+ */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                                {[
-                                    { label: "Patient Entry", sub: "Edge Capture", icon: "👤", color: "bg-white" },
-                                    { label: "Operator Node", sub: "Clinical Vitals", icon: "🏢", color: "bg-blue-50/50" },
-                                    { label: "Doctor Consult", sub: "Remote Specialization", icon: "🩺", color: "bg-primary text-white" },
-                                    { label: "Prescription", sub: "Engineered RX", icon: "📄", color: "bg-blue-50/50" },
-                                    { label: "Diagnostics", sub: "Synced Results", icon: "🔬", color: "bg-white" },
-                                    { label: "Distribution", sub: "Verified Handover", icon: "💊", color: "bg-white" }
-                                ].map((step, i) => (
-                                    <div
-                                        key={i}
-                                        className={`p-5 rounded-2xl border border-slate-200/60 shadow-sm transition-all hover:scale-[1.02] hover:shadow-md ${step.color} relative overflow-hidden group/card`}
-                                    >
-                                        <div className="absolute top-0 right-0 p-3 opacity-0 group-hover/card:opacity-10 transition-opacity">
-                                            <div className="w-12 h-12 rounded-full border border-current" />
-                                        </div>
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shadow-inner bg-slate-400/10">
-                                                {step.icon}
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-bold text-slate-900 leading-tight">{step.label}</p>
-                                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{step.sub}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        ))}
                     </motion.div>
                 </div>
             </div>
         </section>
     );
 }
-
