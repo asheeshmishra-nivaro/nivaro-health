@@ -7,7 +7,7 @@ import { ArrowRight, ShieldCheck } from 'lucide-react';
 
 export default function Hero() {
     return (
-        <section className="relative min-h-screen lg:min-h-0 py-10 sm:py-12 lg:py-20 overflow-visible bg-white">
+        <section className="relative min-h-screen lg:min-h-0 pt-28 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 lg:pb-24 overflow-visible bg-white">
             <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-slate-50 to-transparent pointer-events-none" />
 
             <div className="container mx-auto px-6 lg:px-8 relative z-10">
