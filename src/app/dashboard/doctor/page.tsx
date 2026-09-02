@@ -318,8 +318,11 @@ export default function DoctorPortalConsole() {
                 </div>
 
                 <div className="flex flex-1 gap-6 overflow-hidden">
-                    {/* LEFT PANEL: Professional Patient Queue (18%) */}
-                    <div className="w-80 flex flex-col bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden shrink-0">
+                    {/* LEFT PANEL: Professional Patient Queue */}
+                    <div className={cn(
+                        "w-full lg:w-72 flex flex-col bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden shrink-0",
+                        selectedId && "hidden 2xl:flex"
+                    )}>
                         <div className="p-6 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between font-display">
                             <div>
                                 <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Queue Status</h3>
@@ -407,7 +410,14 @@ export default function DoctorPortalConsole() {
                                 <div className="p-6 border-b border-slate-100 bg-slate-50/50 shrink-0">
                                     <div className="flex flex-wrap items-center justify-between gap-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-base font-black shadow-lg shadow-indigo-600/20 shrink-0">
+                                            <button
+                                                onClick={() => setSelectedId(null)}
+                                                className="p-2.5 rounded-xl bg-slate-100 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all text-[10px] font-black uppercase tracking-widest flex items-center gap-1 shrink-0"
+                                                title="Return to Queue List"
+                                            >
+                                                <ChevronLeft className="w-4 h-4" /> Queue
+                                            </button>
+                                            <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm font-black shadow-md shadow-indigo-600/20 shrink-0">
                                                 {patient?.name?.[0]}
                                             </div>
                                             <div className="min-w-0">
