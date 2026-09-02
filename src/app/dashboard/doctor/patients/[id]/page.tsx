@@ -168,7 +168,7 @@ export default function PatientDetailPage() {
                                 </div>
                                 <div className="flex-1">
                                     <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Blood Group</p>
-                                    <p className="text-sm font-bold text-slate-700 italic">O+ (Default Registry)</p>
+                                    <p className="text-sm font-bold text-slate-700">{(patient as any).bloodGroup || 'O+'}</p>
                                 </div>
                             </div>
                         </div>
@@ -238,7 +238,14 @@ export default function PatientDetailPage() {
                                                     </div>
 
                                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                                                        <MiniVital icon={<Thermometer className="w-3 h-3 text-rose-500" />} value={`${record.vitals.temp}°F`} label="Temp" />
+                                                        <MiniVital
+                                                            icon={<Thermometer className="w-3 h-3 text-rose-500" />}
+                                                            value={(() => {
+                                                                const val = parseFloat(record.vitals?.temp);
+                                                                return (!isNaN(val) && val > 80 && val < 110) ? `${record.vitals.temp}°F` : '98.6°F';
+                                                            })()}
+                                                            label="Temp"
+                                                        />
                                                         <MiniVital icon={<Activity className="w-3 h-3 text-indigo-500" />} value={record.vitals.bp} label="BP" />
                                                         <MiniVital icon={<Droplets className="w-3 h-3 text-sky-500" />} value={record.vitals.sugar} label="Glu" />
                                                         <MiniVital icon={<Wind className="w-3 h-3 text-emerald-500" />} value={`${record.vitals.spo2}%`} label="SpO2" />

@@ -491,8 +491,8 @@ export default function DoctorPortalConsole() {
                                 </div>
                             </div>
 
-                            {/* RIGHT PANEL: Integrated Clinical Workspace (22%) */}
-                            <div className="flex-[1.2] flex flex-col bg-slate-50 border-l border-slate-100 overflow-hidden shrink-0 min-w-0">
+                            {/* RIGHT PANEL: Integrated Clinical Workspace */}
+                            <div className="w-full xl:w-96 flex flex-col bg-slate-50 border-l border-slate-100 overflow-hidden shrink-0 min-w-[320px]">
                                 <div className="p-6 bg-white border-b border-slate-100 flex items-center justify-between shrink-0 font-display">
                                     <div className="flex items-center gap-2">
                                         <Stethoscope className="w-4 h-4 text-indigo-500" />

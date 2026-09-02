@@ -20,7 +20,7 @@ export default function DashboardLayout({ children, allowedRoles }: DashboardLay
     const { user, role, loading } = useAuth();
     const router = useRouter();
     const [notifications, setNotifications] = React.useState<AppNotification[]>([]);
-    const [showActivity, setShowActivity] = React.useState(true);
+    const [showActivity, setShowActivity] = React.useState(false);
 
     React.useEffect(() => {
         if (!loading) {
@@ -156,17 +156,6 @@ export default function DashboardLayout({ children, allowedRoles }: DashboardLay
                     </div>
                 </div>
             </aside>
-
-            {/* Float toggle for Activity Panel */}
-            <button
-                onClick={() => setShowActivity(!showActivity)}
-                className={cn(
-                    "hidden lg:flex fixed bottom-8 right-8 w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl items-center justify-center text-white z-50 transition-all hover:scale-110 active:scale-95 hover:bg-primary hover:border-primary",
-                    showActivity && "lg:right-[340px]"
-                )}
-            >
-                {showActivity ? <X className="w-5 h-5" /> : <Bell className="w-5 h-5" />}
-            </button>
         </div>
     );
 }
