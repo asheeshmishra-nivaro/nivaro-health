@@ -171,7 +171,7 @@ export default function Sidebar() {
             {/* Mobile Top Header */}
             <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-slate-900 border-b border-white/5 px-6 flex items-center justify-between z-40">
                 <div className="flex items-center gap-3">
-                    <Logo width={32} height={32} light />
+                    <Logo width={130} height={32} light />
                 </div>
             </div>
 

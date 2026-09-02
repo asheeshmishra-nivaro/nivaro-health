@@ -91,17 +91,17 @@ export default function VideoEngine({ sessionId, patientName, onEnd, role, mode 
                 {/* Local Stream (PIP) */}
                 <motion.div
                     drag
-                    dragConstraints={{ left: -400, right: 400, top: -300, bottom: 300 }}
-                    className="absolute top-10 right-10 w-48 h-36 bg-slate-800 rounded-3xl border-2 border-white/10 shadow-2xl overflow-hidden cursor-move z-10"
+                    dragConstraints={{ left: -200, right: 200, top: -200, bottom: 200 }}
+                    className="absolute top-4 right-4 sm:top-6 sm:right-6 w-36 h-28 sm:w-44 sm:h-32 bg-slate-800 rounded-2xl border-2 border-white/10 shadow-2xl overflow-hidden cursor-move z-10"
                 >
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-800/80 backdrop-blur-sm">
-                        <Camera className="w-6 h-6 text-white/20 mb-2" />
+                        <Camera className="w-5 h-5 text-white/20 mb-1" />
                         <p className="text-[8px] font-black text-white/30 uppercase tracking-widest">Local Feed</p>
                     </div>
                 </motion.div>
 
                 {/* Clinical Interface Overlay */}
-                <div className="absolute inset-0 p-10 pointer-events-none flex flex-col justify-between">
+                <div className="absolute inset-0 p-4 sm:p-6 pointer-events-none flex flex-col justify-between">
                     <div className="flex justify-between items-start">
                         <motion.div
                             initial={{ x: -20, opacity: 0 }}

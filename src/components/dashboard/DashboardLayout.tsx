@@ -75,7 +75,7 @@ export default function DashboardLayout({ children, allowedRoles }: DashboardLay
                 "flex-1 lg:ml-64 h-screen overflow-y-auto transition-all duration-500",
                 showActivity && "lg:mr-80"
             )}>
-                <div className="p-4 lg:p-8 pb-32">
+                <div className="p-4 lg:p-8 pb-36 sm:pb-32">
                     <div className="max-w-[1400px] mx-auto">
                         <header className="flex justify-between items-center mb-8 lg:hidden">
                             <h2 className="text-xl font-display font-black text-slate-900 tracking-tight">NIVARO</h2>
