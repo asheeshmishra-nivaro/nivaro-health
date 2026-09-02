@@ -62,10 +62,10 @@ export default function OperationalModel() {
 
                     <div className="grid grid-cols-2 gap-4">
                         {[
-                            { label: "Consultation", val: "12 Min" },
-                            { label: "Wait Time", val: " < 15 Min" },
-                            { label: "Traceability", val: "100%" },
-                            { label: "Accuracy", val: "Enterprise" }
+                            { label: "Target Consult", val: "~12 Min" },
+                            { label: "Target Wait Time", val: "< 15 Min" },
+                            { label: "Audit Traceability", val: "End-to-End" },
+                            { label: "Clinical Standards", val: "Structured" }
                         ].map((stat, i) => (
                             <div key={i} className="p-6 rounded-3xl bg-slate-900 text-white flex flex-col justify-center">
                                 <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">{stat.label}</p>

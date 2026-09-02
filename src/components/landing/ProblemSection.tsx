@@ -7,7 +7,7 @@ import { AlertCircle, ZapOff, Fingerprint, TrendingDown, Users, Activity } from 
 const challenges = [
     {
         title: "Doctor Shortage",
-        desc: "India has approximately one government doctor for every 10,000 people in rural areas, leading to critical care delays.",
+        desc: "India has approximately one government doctor for every 11,000 people in rural areas, leading to critical care delays.",
         icon: Users,
         color: "text-red-600",
         bg: "bg-red-50"
@@ -50,7 +50,7 @@ export default function ProblemSection() {
                         <div className="bg-slate-50 border-l-4 border-primary p-8 rounded-r-2xl mb-10">
                             <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">Critical Insight</p>
                             <p className="text-2xl font-display font-medium text-slate-800 leading-snug">
-                                "India has one government doctor for <span className="text-primary font-bold">~10,000 people</span> in rural areas."
+                                "India has one government doctor for <span className="text-primary font-bold">~11,000 people</span> in rural areas."
                             </p>
                         </div>
 

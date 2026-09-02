@@ -97,7 +97,7 @@ export default function Features() {
             </div>
             <h4 className="text-2xl font-display font-bold mb-4 relative z-10">Unified Control Plane</h4>
             <p className="text-slate-400 text-sm leading-relaxed mb-6 relative z-10">Integrated modules communicating in real-time to remove operational friction.</p>
-            <div className="px-4 py-1 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-widest relative z-10">System Status: Active</div>
+            <div className="px-4 py-1 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-widest relative z-10">Architecture Ready</div>
           </motion.div>
         </div>
       </div>

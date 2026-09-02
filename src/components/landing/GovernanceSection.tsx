@@ -35,7 +35,7 @@ export default function GovernanceSection() {
                                 },
                                 {
                                     title: "Encrypted Consultation",
-                                    desc: "HIPAA-compliant high-bandwidth channels protecting clinical integrity.",
+                                    desc: "Built for DPDP Act 2023 compliance, with encrypted consultation channels.",
                                     icon: Lock
                                 },
                                 {
@@ -76,7 +76,7 @@ export default function GovernanceSection() {
 
                             {/* Data tags floating around */}
                             {[
-                                "AES-256", "HIPAA Ready", "Clinical Log", "2FA"
+                                "DPDP Ready", "Encrypted Data", "Clinical Audit", "Access Control"
                             ].map((label, idx) => (
                                 <div
                                     key={label}

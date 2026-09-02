@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Shield } from 'lucide-react';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -15,64 +15,46 @@ interface LogoProps {
 }
 
 export default function Logo({
-    width = 40,
-    height = 40,
+    width,
+    height,
     className,
     iconOnly = false,
     showText = true,
     light = false
 }: LogoProps) {
-    return (
-        <div className={cn("flex items-center gap-3", className)}>
-            <div
-                className={cn(
-                    "relative flex items-center justify-center rounded-2xl overflow-hidden transition-all duration-500",
-                    light ? "bg-white/5" : "bg-transparent"
-                )}
-                style={{ width, height }}
-            >
-                {/* 
-                    Trying to load the logo image. 
-                    If it fails, we fallback to the Shield icon.
-                */}
+    if (iconOnly) {
+        return (
+            <div className={cn("inline-flex items-center", className)}>
                 <Image
-                    src="/logo_premium.png"
-                    alt="Nivaro Health Logo"
-                    width={width}
-                    height={height}
-                    className="object-contain" // Sharp containment
-                    priority
-                    quality={100} // Force maximum quality
-                    onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                    }}
-                />
-                <Shield
+                    src="/logo_icon.png"
+                    alt="Nivaro Health Icon"
+                    width={width || 42}
+                    height={height || 42}
                     className={cn(
-                        "absolute w-1/2 h-1/2 text-white transition-opacity duration-300",
-                        "pointer-events-none"
+                        "object-contain transition-transform duration-300 hover:scale-105",
+                        light ? "brightness-0 invert" : ""
                     )}
-                    style={{ opacity: 0 }} // Hidden by default, can be shown if needed
+                    priority
+                    quality={100}
                 />
             </div>
+        );
+    }
 
-            {!iconOnly && showText && (
-                <div className="flex flex-col">
-                    <span className={cn(
-                        "font-display font-black tracking-tight leading-none uppercase",
-                        light ? "text-white" : "text-primary",
-                        width > 40 ? "text-2xl" : "text-xl"
-                    )}>
-                        NIVARO <span className={light ? "text-white/80" : "text-secondary"}>HEALTH</span>
-                    </span>
-                    <span className={cn(
-                        "text-[8px] font-bold uppercase tracking-[0.3em] mt-1",
-                        light ? "text-white/40" : "text-slate-500"
-                    )}>
-                        Health OS
-                    </span>
-                </div>
-            )}
+    return (
+        <div className={cn("inline-flex items-center", className)}>
+            <Image
+                src="/logo_full.png"
+                alt="Nivaro Health Technologies"
+                width={width || 190}
+                height={height || 50}
+                className={cn(
+                    "object-contain h-10 sm:h-12 w-auto max-w-[200px] sm:max-w-[220px] transition-transform duration-300 hover:opacity-95",
+                    light ? "brightness-0 invert opacity-90" : ""
+                )}
+                priority
+                quality={100}
+            />
         </div>
     );
 }

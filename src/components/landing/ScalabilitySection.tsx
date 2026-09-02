@@ -20,21 +20,21 @@ export default function ScalabilitySection() {
                     {[
                         {
                             title: "RAPID DEPLOYMENT",
-                            desc: "Deploy new healthcare nodes in less than 48 hours with standardized infrastructure kits.",
+                            desc: "Engineered for rapid deployment of new healthcare nodes with standardized infrastructure kits.",
                             icon: Globe,
-                            stat: "48H"
+                            stat: "Target 48H"
                         },
                         {
                             title: "DATA AGGREGATION",
-                            desc: "Real-time population health insights aggregated centrally across thousands of medical points.",
+                            desc: "Architected to aggregate population health insights as our node network grows.",
                             icon: BarChart3,
-                            stat: "Real-time"
+                            stat: "Centralized"
                         },
                         {
                             title: "ECONOMIC EFFICIENCY",
-                            desc: "Optimized resource allocation reduces operational costs by up to 40% per node.",
+                            desc: "Designed to significantly reduce per-node operational costs through centralized governance.",
                             icon: TrendingUp,
-                            stat: "40%"
+                            stat: "Optimized"
                         }
                     ].map((item, idx) => (
                         <motion.div

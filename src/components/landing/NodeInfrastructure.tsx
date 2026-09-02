@@ -101,7 +101,7 @@ export default function NodeInfrastructure() {
                             {/* Architecture Badge */}
                             <div className="mt-12 pt-8 border-t border-white/10 flex justify-center">
                                 <span className="px-4 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">
-                                    Nivaro Scalable Arch v3.0 // Ready to Deploy
+                                    Nivaro Node Architecture // Engineered for Scale
                                 </span>
                             </div>
                         </motion.div>

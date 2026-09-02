@@ -6,6 +6,7 @@ import NodeInfrastructure from '@/components/landing/NodeInfrastructure';
 import OperationalModel from '@/components/landing/OperationalModel';
 import GovernanceSection from '@/components/landing/GovernanceSection';
 import ScalabilitySection from '@/components/landing/ScalabilitySection';
+import TeamSection from '@/components/landing/TeamSection';
 import PartnerForm from '@/components/landing/PartnerForm';
 import Footer from '@/components/landing/Footer';
 
@@ -21,6 +22,7 @@ export default function Home() {
         <OperationalModel />
         <GovernanceSection />
         <ScalabilitySection />
+        <TeamSection />
       </div>
 
       <section id="partner" className="py-24 bg-slate-50 relative overflow-hidden">

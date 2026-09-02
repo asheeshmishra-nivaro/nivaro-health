@@ -38,6 +38,9 @@ export default function Hero() {
                                 Explore Platform
                             </Link>
                         </div>
+                        <p className="text-xs font-semibold text-slate-500 mt-3 text-center sm:text-left">
+                            Currently piloting in Kanpur, Uttar Pradesh — request early access
+                        </p>
                     </motion.div>
 
                     <motion.div
@@ -51,9 +54,9 @@ export default function Hero() {
 
                             <div className="flex items-center justify-between mb-8">
                                 <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">System Architecture</h4>
-                                <div className="flex gap-1.5">
+                                <div className="flex gap-1.5 items-center">
                                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                    <div className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Network Live</div>
+                                    <div className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Pre-Pilot Architecture</div>
                                 </div>
                             </div>
 
