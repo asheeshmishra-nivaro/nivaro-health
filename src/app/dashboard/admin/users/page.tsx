@@ -17,13 +17,15 @@ import {
     Activity,
     CheckCircle2,
     ExternalLink,
-    Filter
+    Filter,
+    Wallet
 } from 'lucide-react';
 import { collection, getDocs, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { User, Node, UserRole } from '@/types';
 import { toast } from 'sonner';
 import { useAuth } from '@/context/AuthContext';
+import { disburseOperatorEarnings } from '@/lib/db';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 

@@ -738,3 +738,70 @@ export const getGovernanceStats = async (): Promise<GovernanceStats> => {
         nodeHealthScores
     };
 };
+
+// --- REAL-TIME INTERCONNECTED ATTACHMENT & LAB WORKFLOWS ---
+export const uploadConsultationAttachment = async (consultationId: string, photoUrl: string, title?: string) => {
+    const consulRef = doc(db, 'consultations', consultationId);
+    const snap = await getDoc(consulRef);
+    if (!snap.exists()) throw new Error('Consultation not found');
+
+    const currentAttachments = snap.data().attachments || [];
+    const newAttachment = {
+        id: 'att_' + Date.now(),
+        url: photoUrl,
+        title: title || 'Medical Record Scan',
+        uploadedAt: new Date().toISOString()
+    };
+
+    await updateDoc(consulRef, {
+        attachments: [...currentAttachments, newAttachment],
+        updatedAt: serverTimestamp()
+    });
+
+    return newAttachment;
+};
+
+export const completeDiagnosticOrder = async (orderId: string, results: string, photoUrl?: string) => {
+    const orderRef = doc(db, 'diagnosticOrders', orderId);
+    const snap = await getDoc(orderRef);
+    if (!snap.exists()) throw new Error('Diagnostic Order not found');
+
+    const data = snap.data();
+    await updateDoc(orderRef, {
+        status: 'completed',
+        notes: results,
+        resultPhotoUrl: photoUrl || null,
+        updatedAt: serverTimestamp()
+    });
+
+    // Notify assigned doctor
+    await createNotification({
+        userId: data.doctorId,
+        title: 'Lab Results Uploaded',
+        message: `Diagnostic results ready for review for patient ID ${data.patientId.slice(-6).toUpperCase()}.`,
+        type: 'success',
+        read: false
+    });
+};
+
+export const disburseOperatorEarnings = async (operatorId: string, amount: number, adminUserId: string) => {
+    const transactionsRef = collection(db, 'operator_wallet_transactions');
+    await addDoc(transactionsRef, {
+        operatorId,
+        patientId: 'PAYOUT_' + Date.now(),
+        patientName: 'Admin Wallet Settlement',
+        serviceType: 'Payout',
+        commissionEarned: -amount, // Debit
+        status: 'completed',
+        createdAt: serverTimestamp()
+    });
+
+    await logActivity(
+        adminUserId,
+        'Admin Authority',
+        'ADMIN',
+        'WALLET_DISBURSEMENT',
+        `Settled ₹${amount} wallet balance for operator ${operatorId}`,
+        'SYSTEM'
+    );
+};

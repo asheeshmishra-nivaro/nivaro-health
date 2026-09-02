@@ -139,10 +139,10 @@ export default function ConsultationPage() {
     }, [consultation?.status]);
 
     useEffect(() => {
-        if (user?.nodeId) {
-            getInventory(user.nodeId).then(setInventory);
+        if (consultation?.nodeId) {
+            getInventory(consultation.nodeId).then(setInventory);
         }
-    }, [user?.nodeId]);
+    }, [consultation?.nodeId]);
 
     useEffect(() => {
         if (currentMed.name.length > 1) {
@@ -446,9 +446,24 @@ export default function ConsultationPage() {
                                                                     <p className="text-sm font-bold text-slate-900">{item.name}</p>
                                                                     <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mt-1">{item.category}</p>
                                                                 </div>
-                                                                <div className="px-3 py-1 bg-white rounded-lg border border-slate-100 text-[8px] font-black text-indigo-500 uppercase">
-                                                                    {item.totalQuantity} Units
-                                                                </div>
+                                                                 <div className={cn(
+                                                                     "px-3 py-1.5 rounded-lg border text-[9px] font-black uppercase flex items-center gap-1.5",
+                                                                     item.totalQuantity > (item.minStockLevel || 10)
+                                                                         ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                                                                         : item.totalQuantity > 0
+                                                                             ? "bg-amber-50 text-amber-700 border-amber-200"
+                                                                             : "bg-red-50 text-red-700 border-red-200"
+                                                                 )}>
+                                                                     <div className={cn(
+                                                                         "w-1.5 h-1.5 rounded-full",
+                                                                         item.totalQuantity > (item.minStockLevel || 10)
+                                                                             ? "bg-emerald-500 animate-pulse"
+                                                                             : item.totalQuantity > 0
+                                                                                 ? "bg-amber-500"
+                                                                                 : "bg-red-500"
+                                                                     )} />
+                                                                     {item.totalQuantity > 0 ? `Stock: ${item.totalQuantity} ${item.unit}` : 'Out of Stock'}
+                                                                 </div>
                                                             </button>
                                                         ))}
                                                     </div>

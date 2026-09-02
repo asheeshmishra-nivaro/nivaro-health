@@ -162,10 +162,10 @@ export default function NodesPage() {
                                 </div>
                                 <div className="space-y-1.5 p-4 rounded-2xl bg-slate-50/50 group-hover:bg-primary/[0.02] transition-colors">
                                     <div className="flex items-center gap-1.5 mb-1">
-                                        <UsersIcon className="w-3 h-3 text-indigo-500" />
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Staff</p>
+                                        <Activity className="w-3 h-3 text-emerald-500 animate-pulse" />
+                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Telemetry</p>
                                     </div>
-                                    <p className="text-xs font-black text-slate-900">12 Active</p>
+                                    <p className="text-xs font-black text-emerald-600">38ms • Live</p>
                                 </div>
                             </div>
 

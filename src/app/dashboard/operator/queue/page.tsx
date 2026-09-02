@@ -67,21 +67,25 @@ export default function OperatorQueuePage() {
     }, [user?.nodeId, activeSessions.length]);
 
     useEffect(() => {
-        const fetchQueue = async () => {
-            if (!user?.nodeId) return;
-            try {
-                // Fetch all non-completed consultations for the node
-                const data = await getConsultationsByNode(user.nodeId);
-                const activeItems = data.filter(c => c.status !== 'completed');
-                setQueue(activeItems);
-            } catch (error: any) {
-                console.error('Error fetching queue:', error);
-                toast.error('Failed to load consultation queue');
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchQueue();
+        if (!user?.nodeId) return;
+
+        // Real-time Firestore listener for all non-completed consultations at this node
+        const consulQuery = query(
+            collection(db, 'consultations'),
+            where('nodeId', '==', user.nodeId)
+        );
+
+        const unsubscribe = onSnapshot(consulQuery, (snapshot) => {
+            const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Consultation));
+            const activeItems = items.filter(c => c.status !== 'completed');
+            setQueue(activeItems);
+            setLoading(false);
+        }, (error) => {
+            console.error('Operator queue listener error:', error);
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
     }, [user?.nodeId]);
 
     const filteredQueue = queue.filter(c =>

@@ -15,9 +15,7 @@ export function useConsultationQueue(nodeId: string | undefined, doctorId?: stri
         const consultRef = collection(db, 'consultations');
 
         // Base statuses for doctor or operator
-        const activeStatuses = doctorId
-            ? ['doctor-assigned', 'active']
-            : ['pending', 'doctor-assigned', 'active'];
+        const activeStatuses = ['pending', 'doctor-assigned', 'active'];
 
         let q = query(
             consultRef,
